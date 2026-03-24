@@ -25,13 +25,13 @@ Heatmaps will be generated using the currently selected padj and log2fc values. 
 ## GO term plots
 To generate GO term plots, please input two files (they must be in csv or tsv format, txt files will be accepted)
 
-### GO <-> Gene
+#### GO <-> Gene
 This file must contain 2 columns (in order):
 ```
 GO ID number    Gene name (as found in gene table)
 ```
 
-### GO <-> Term
+#### GO <-> Term
 This file must contain 2 columns (in order):
 ```
 GO ID number    GO term description
