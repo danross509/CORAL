@@ -1,0 +1,39 @@
+---
+title: "CORAL_requirements"
+author: "David Ross"
+date: "2026-03-24"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# The following installs the packages required to locally run CORAL_app.R
+```{r}
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+BiocManager::install(c("EnhancedVolcano", "DESeq2", "clusterProfiler", "enrichplot", "DOSE"))
+
+
+install.packages("ggplot2")
+install.packages("ggfortify")
+install.packages("gprofiler2")
+install.packages("ggrepel")
+install.packages("RColorBrewer")
+install.packages("pheatmap")
+install.packages("gplots")
+install.packages("shinyjs")
+install.packages("devtools")
+install.packages("colourpicker")
+install.packages("data.table")
+install.packages("DT")
+install.packages("rrcov")
+install.packages("miniUI")
+install.packages("shinyFiles")
+install.packages("stringr")
+install.packages("cluster")
+install.packages("plyr")
+install.packages("dplyr")
+```
+
