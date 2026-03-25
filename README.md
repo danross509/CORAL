@@ -1,4 +1,5 @@
 # CORAL
+Comprehensive Output for RNASeq Analysis & Logging
 RShiny app built for RNASeq DEG result filtering, heatmaps, and GO term visualization 
 
 Run this app locally in RStudio to use
