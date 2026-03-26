@@ -774,7 +774,6 @@ shinyApp(
     output$deseq2FilesDir <- renderPrint(deseq2FilesDir())
     
     # Choose files, if necessary
-    
     output$deseq2FilesSelect <- renderUI({
       req(deseq2FilesDir())
       
@@ -816,25 +815,36 @@ shinyApp(
     output$deseq2FilesListFiltMessage <- renderText("Filtered DESeq2 files to be saved:")
     
     # Choose directory for filtered DESeq2 files
-    parent_DESeq2FilesDir <- reactive({
-      req(deseq2FilesDir())
+    # parent_DESeq2FilesDir <- reactive({
+    #   req(deseq2FilesDir())
+    #   
+    #   parent_dir <- dirname(deseq2FilesDir())
+    #   
+    #   c(Home = parent_dir, getVolumes()())
+    # })
+    
+    save_fileRoots <- reactive({
+      dir <- tryCatch(deseq2FilesDir(), error = function(e) NULL)
       
-      parent_dir <- dirname(deseq2FilesDir())
-      
-      c(Home = parent_dir, getVolumes()())
+      if (isTruthy(isTruthy(dir) && nchar(dir) > 0)) {
+        parent_dir <- dirname(deseq2FilesDir())
+        c(Home = parent_dir, getVolumes()())
+      } else {
+        c(Home = fs::path_home(), getVolumes()())
+      }
     })
     
     observe({
       shinyDirChoose(input, 
                      'deseq2FilesDirParent', 
-                     roots = parent_DESeq2FilesDir(), 
+                     roots = save_fileRoots(), 
                      session = session)
     })
     
     deseq2FilesDirParent <- reactive({
       req(input$deseq2FilesDirParent)
       
-      parseDirPath(parent_DESeq2FilesDir(), input$deseq2FilesDirParent)
+      parseDirPath(save_fileRoots(), input$deseq2FilesDirParent)
     })
     
     # Create directory name based on prefix + selected thresholds
@@ -2939,7 +2949,7 @@ shinyApp(
     
     # Reorder bubble plot df
     go_EGO_plotDFordered <- reactive({
-      req(input$input$go_bubbleLimit)
+      req(input$go_bubbleLimit)
       req(!input$go_bubbleChooseTerms || length(input$go_bubbleTermChoice) > 0)
             
       ego_df <- go_EGO_plotDF()
